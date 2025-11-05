@@ -7,8 +7,6 @@ import { use, useEffect } from 'react';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/lib/useColorScheme';
-import { StripeProvider } from '@stripe/stripe-react-native';
-import { startBackgroundLocationTask } from '@/lib/location/background';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -54,16 +52,13 @@ function RootLayoutNav() {
 
   // TODO: add urlScheme
   return (
-    <StripeProvider publishableKey={process.env.STRIPE_PUBLISHABLE_KEY ?? ""}
-      merchantIdentifier="merchant.identifier" // required for Apple Pay
-      urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
-    >
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-          <Stack.Screen name="chat" options={{ presentation: 'modal', title: "Chat" }} />
-        </Stack>
-      </ThemeProvider>
-    </StripeProvider>);
+    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="chat" options={{ presentation: 'modal', title: "Chat" }} />
+        <Stack.Screen name="map" options={{ presentation: 'modal', title: "Map" }} />
+      </Stack>
+    </ThemeProvider>
+  )
 }
